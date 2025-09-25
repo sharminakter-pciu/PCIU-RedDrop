@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Volunteer Registration | PCIU RedDrop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #fff0f0, #ffe5e5);
+        color: #333;
+        line-height: 1.5;
+      }
+
+      header {
+        background-color: #b3001b;
+        color: white;
+        padding: 15px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo-area {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .logo-area img {
+        height: 55px;
+      }
+
+      .logo-area h1 {
+        font-size: 28px;
+        font-weight: 700;
+        user-select: none;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      nav ul li a:hover {
+        color: #ffd700;
+      }
+
+      .intro-volunteer {
+        max-width: 800px;
+        margin: 40px auto 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 25px 30px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      .intro-volunteer h2 {
+        color: #b3001b;
+        font-size: 32px;
+        margin-bottom: 15px;
+      }
+
+      .intro-volunteer p {
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      .volunteer-reg {
+        max-width: 600px;
+        margin: 20px auto 60px;
+        background-color: white;
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      .volunteer-reg h2 {
+        text-align: center;
+        color: #b3001b;
+        margin-bottom: 30px;
+      }
+
+      .volunteer-reg form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .volunteer-reg label {
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+
+      .volunteer-reg input,
+      .volunteer-reg select,
+      .volunteer-reg textarea {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .volunteer-reg input:focus,
+      .volunteer-reg select:focus,
+      .volunteer-reg textarea:focus {
+        outline: none;
+        border-color: #b3001b;
+        box-shadow: 0 0 8px rgba(179, 0, 27, 0.3);
+      }
+
+      .volunteer-reg button {
+        background-color: #b3001b;
+        color: white;
+        padding: 14px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+      }
+
+      .volunteer-reg button:hover {
+        background-color: #ffd700;
+        color: #b3001b;
+        transform: scale(1.05);
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 650px) {
+        header,
+        .intro-volunteer,
+        .volunteer-reg {
+          padding: 20px;
+        }
+
+        .intro-volunteer h2,
+        .volunteer-reg h2 {
+          font-size: 26px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo-area">
+        <img src="logo.jpeg" alt="PCIU RedDrop Logo" />
+        <h1>PCIU RedDrop</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Volunteer Intro -->
+    <section class="intro-volunteer">
+      <h2>Become a Volunteer</h2>
+      <p>
+        Join our team of dedicated volunteers and help save lives. Your small
+        effort can make a huge difference.
+      </p>
+    </section>
+
+    <!-- Volunteer Registration Form -->
+    <section class="volunteer-reg">
+      <h2>Volunteer Registration Form</h2>
+      <form action="volunteer-submit.php" method="POST">
+        <div>
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your full name"
+            required
+          />
+        </div>
+        <div>
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your email"
+            required
+          />
+        </div>
+        <div>
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="01XXXXXXXXX"
+            required
+          />
+        </div>
+        <div>
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age" min="18" max="60" required />
+        </div>
+        <div>
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="address">Address</label>
+          <textarea
+            id="address"
+            name="address"
+            rows="3"
+            placeholder="Your address"
+            required
+          ></textarea>
+        </div>
+        <div>
+          <label for="availability">Availability</label>
+          <textarea
+            id="availability"
+            name="availability"
+            rows="2"
+            placeholder="Days/times you can volunteer"
+            required
+          ></textarea>
+        </div>
+        <button type="submit">Register as Volunteer</button>
+      </form>
+    </section>
+  </body>
+</html>

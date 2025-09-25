@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Login | PCIU RedDrop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: url("logo.jpeg") no-repeat center center fixed;
+        background-size: 600px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 0;
+      }
+
+      .login-container {
+        position: relative;
+        z-index: 1;
+        background: white;
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .login-container h2 {
+        margin-bottom: 20px;
+        color: #b3001b;
+      }
+
+      .login-container input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+      }
+
+      .login-container button {
+        width: 100%;
+        padding: 12px;
+        background-color: #b3001b;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .login-container button:hover {
+        background-color: #ff1a1a;
+      }
+
+      .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+
+      .back-link {
+        margin-top: 15px;
+      }
+
+      .back-link a {
+        text-decoration: none;
+        color: #b3001b;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .back-link a:hover {
+        color: #ff1a1a;
+      }
+
+      @media (max-width: 400px) {
+        .login-container {
+          width: 90%;
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+      <input type="email" id="email" placeholder="Admin Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button onclick="adminLogin()">Login</button>
+      <div class="error" id="error-msg"></div>
+      <div class="back-link">
+        <a href="index.html">← Back to Home</a>
+      </div>
+    </div>
+
+    <script>
+      const adminEmail = "pciureddrop.admin@gmail.com";
+      const adminPassword = "sharmin123";
+
+      function adminLogin() {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const errorMsg = document.getElementById("error-msg");
+
+        if (email === adminEmail && password === adminPassword) {
+          // Save login state in localStorage
+          localStorage.setItem("adminLoggedIn", "true");
+          localStorage.setItem("adminName", "Admin"); // for welcome message
+          // Redirect to dashboard
+          window.location.href = "admin_dashboard.html";
+        } else {
+          errorMsg.textContent = "Invalid email or password!";
+        }
+      }
+    </script>
+  </body>
+</html>

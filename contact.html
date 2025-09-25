@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact Us | PCIU RedDrop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background: #fff0f0;
+        color: #333;
+        line-height: 1.6;
+        padding: 40px 20px;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Background logo */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 500px;
+        background: url("logo.jpeg") no-repeat center center;
+        background-size: contain;
+        opacity: 0.25;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      h1 {
+        color: #b3001b;
+        margin-bottom: 20px;
+      }
+      p {
+        margin-bottom: 15px;
+        font-size: 17px;
+      }
+      /* Remove bottom margin on this specific paragraph to tighten space */
+      .professional-inquiry {
+        margin-bottom: 5px;
+      }
+      a.linkedin {
+        display: inline-block;
+        margin-top: 0; /* Removed top margin */
+        color: #0a66c2;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 15px;
+      }
+      a.linkedin:hover {
+        text-decoration: underline;
+      }
+      .back-link {
+        margin-top: 30px;
+      }
+      .back-link a {
+        color: #b3001b;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .back-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p><strong>Sharmin Akter</strong> (ID: CSE 03007916)</p>
+      <p>
+        Email:
+        <a href="mailto:sharminakter.pciu@gmail.com"
+          >sharminakter.pciu@gmail.com</a
+        >
+      </p>
+
+      <p class="professional-inquiry">
+        For professional inquiries, feel free to reach out to me on LinkedIn:
+      </p>
+      <a
+        class="linkedin"
+        href="https://www.linkedin.com/in/sharminakter890/"
+        target="_blank"
+        rel="noopener"
+      >
+        <i class="fab fa-linkedin"></i> /in/sharminakter890/
+      </a>
+
+      <p><strong>Ali Hossen</strong> (ID: CSE 03007916)</p>
+      <p>
+        Email:
+        <a href="mailto:mdalihossen8246@gmail.com">mdalihossen8246@gmail.com</a>
+      </p>
+      <a
+        class="linkedin"
+        href="https://www.linkedin.com/in/md-ali-hossen-9171a137a"
+        target="_blank"
+        rel="noopener"
+      >
+        <i class="fab fa-linkedin"></i> /in/md-ali-hossen-9171a137a/
+      </a>
+
+      <div class="back-link">
+        <p><a href="index.html">← Back to Home</a></p>
+      </div>
+    </div>
+  </body>
+</html>

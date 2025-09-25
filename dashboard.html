@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard - PCIU RedDrop</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 25px;
+        background: #ffe5e5;
+        border-radius: 10px;
+        border: 1px solid #b3001b;
+        user-select: none;
+      }
+      h2 {
+        color: #b3001b;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
+      .info {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .label {
+        font-weight: 700;
+      }
+      input[type="date"],
+      input[type="text"] {
+        padding: 8px;
+        width: 100%;
+        border: 1.5px solid #b3001b;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 15px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      input[type="date"]:focus,
+      input[type="text"]:focus {
+        outline: none;
+        border-color: #ffcc00;
+        box-shadow: 0 0 6px #ffcc00;
+      }
+      button {
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        background-color: #b3001b;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+        user-select: none;
+      }
+      button:hover {
+        background-color: #800014;
+      }
+      .section {
+        margin-bottom: 30px;
+        border-top: 1.5px solid #b3001b44;
+        padding-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Welcome to Your Dashboard</h2>
+
+    <div class="info">
+      <span class="label">Name:</span> <span id="userName"></span>
+    </div>
+    <div class="info">
+      <span class="label">Email:</span> <span id="userEmail"></span>
+    </div>
+    <div class="info">
+      <span class="label">Phone:</span> <span id="userPhone"></span>
+    </div>
+    <div class="info">
+      <span class="label">Blood Group:</span> <span id="userBloodGroup"></span>
+    </div>
+    <div class="info">
+      <span class="label">Department:</span> <span id="userDepartment"></span>
+    </div>
+    <div class="info">
+      <span class="label">Address:</span> <span id="userAddress"></span>
+    </div>
+
+    <div class="section">
+      <label class="label">🗓️ Last Donation Date:</label>
+      <input type="date" id="donationDate" onchange="saveDonationDate()" />
+      <div class="info">
+        <span class="label">Next Eligible Date:</span>
+        <span id="nextEligibleDate">-</span>
+      </div>
+      <div class="info">
+        <span class="label">Donation Status:</span>
+        <span id="eligibility">-</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="label">Update Phone or Address:</label>
+      <input type="text" id="editPhone" placeholder="New Phone Number" />
+      <input type="text" id="editAddress" placeholder="New Address" />
+      <button onclick="updateProfile()">Update Profile</button>
+    </div>
+
+    <div class="section">
+      <h3>Blood Request History (Coming Soon)</h3>
+      <p>
+        Feature under development. You’ll be able to view your blood donation
+        requests here.
+      </p>
+    </div>
+
+    <button onclick="logout()">Logout</button>
+
+    <script>
+      // Load user data
+      const user = JSON.parse(localStorage.getItem("pcuiUser")) || {};
+      const loggedIn = localStorage.getItem("pcuiLoggedIn");
+
+      if (!loggedIn || !user.email) {
+        alert("You are not logged in.");
+        window.location.href = "login.html";
+      }
+
+      // Display user info
+      document.getElementById("userName").textContent = user.name || "";
+      document.getElementById("userEmail").textContent = user.email || "";
+      document.getElementById("userPhone").textContent = user.phone || "";
+      document.getElementById("userBloodGroup").textContent = user.blood || "";
+      document.getElementById("userDepartment").textContent =
+        user.department || "";
+      document.getElementById("userAddress").textContent = user.address || "";
+
+      // Donation date elements
+      const donationDateInput = document.getElementById("donationDate");
+      const nextEligibleDateEl = document.getElementById("nextEligibleDate");
+      const eligibilityEl = document.getElementById("eligibility");
+
+      // Load last donation date if saved
+      const savedDate = localStorage.getItem("lastDonationDate");
+      if (savedDate) {
+        donationDateInput.value = savedDate;
+        calculateEligibility(savedDate);
+      }
+
+      function saveDonationDate() {
+        const date = donationDateInput.value;
+        if (date) {
+          localStorage.setItem("lastDonationDate", date);
+          calculateEligibility(date);
+        }
+      }
+
+      function calculateEligibility(dateStr) {
+        const last = new Date(dateStr);
+        const next = new Date(last);
+        next.setDate(last.getDate() + 120); // 120 days gap
+
+        const today = new Date();
+        const eligible = today >= next;
+
+        nextEligibleDateEl.textContent = next.toISOString().split("T")[0];
+        eligibilityEl.textContent = eligible
+          ? "✅ Eligible to Donate"
+          : "❌ Not Yet Eligible";
+      }
+
+      function updateProfile() {
+        const newPhone = document.getElementById("editPhone").value.trim();
+        const newAddress = document.getElementById("editAddress").value.trim();
+
+        if (newPhone) {
+          user.phone = newPhone;
+          document.getElementById("userPhone").textContent = newPhone;
+        }
+        if (newAddress) {
+          user.address = newAddress;
+          document.getElementById("userAddress").textContent = newAddress;
+        }
+
+        // Update localStorage allUsers list too
+        let users = JSON.parse(localStorage.getItem("allUsers")) || [];
+        users = users.map((u) => (u.email === user.email ? user : u));
+        localStorage.setItem("allUsers", JSON.stringify(users));
+
+        localStorage.setItem("pcuiUser", JSON.stringify(user));
+        alert("Profile updated!");
+      }
+
+      function logout() {
+        localStorage.removeItem("pcuiLoggedIn");
+        localStorage.removeItem("pcuiUser");
+        alert("Logged out successfully.");
+        window.location.href = "login.html";
+      }
+    </script>
+  </body>
+</html>

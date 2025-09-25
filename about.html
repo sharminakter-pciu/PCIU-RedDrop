@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>About Us | PCIU RedDrop</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fff0f0;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Logo background - more visible */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 500px;
+        background: url("logo.jpeg") no-repeat center center;
+        background-size: contain;
+        opacity: 0.25; /* Increased visibility */
+        transform: translate(-50%, -50%);
+        z-index: -1;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 40px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #b3001b;
+        margin-bottom: 30px;
+      }
+
+      p {
+        font-size: 17px;
+        line-height: 1.7;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .mission {
+        background: rgba(255, 247, 247, 0.9);
+        border-left: 5px solid #b3001b;
+        padding: 20px;
+        margin-top: 30px;
+        border-radius: 8px;
+      }
+
+      .mission ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .mission li {
+        padding: 8px 0;
+        transition: all 0.3s ease;
+      }
+
+      .mission li:hover {
+        background-color: #b3001b;
+        color: white;
+        padding-left: 15px;
+        border-radius: 5px;
+      }
+
+      .back-link {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .back-link a {
+        text-decoration: none;
+        color: #b3001b;
+        font-weight: bold;
+      }
+
+      .back-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>About PCIU RedDrop</h1>
+
+      <p>
+        <strong>PCIU RedDrop</strong> is a student-led blood donation initiative
+        based at Port City International University (PCIU), created to bridge
+        the gap between blood donors and recipients in emergency situations.
+      </p>
+
+      <p>
+        Our mission is to save lives by making it easy and fast for anyone to
+        request or donate blood through a reliable, transparent, and
+        user-friendly platform.
+      </p>
+
+      <p>
+        We believe that no one should suffer due to a lack of access to
+        life-saving blood. Through PCIU RedDrop, we're building a network of
+        compassionate donors who are ready to respond when needed the most.
+      </p>
+
+      <div class="mission">
+        <h3>Our Core Values:</h3>
+        <ul>
+          <li>🩸 Compassion & Humanity</li>
+          <li>🤝 Voluntary Service</li>
+          <li>🧭 Transparency</li>
+          <li>📱 Smart Technology</li>
+          <li>🎓 Student Empowerment</li>
+        </ul>
+      </div>
+
+      <div class="back-link">
+        <p><a href="index.html">← Back to Home</a></p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard | PCIU RedDrop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      header {
+        background-color: #b3001b;
+        color: white;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      header h1 {
+        font-size: 24px;
+      }
+      .logout-btn {
+        background-color: #ffd700;
+        color: #b3001b;
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .logout-btn:hover {
+        background-color: white;
+        color: #b3001b;
+        transform: scale(1.05);
+      }
+
+      .welcome-msg {
+        text-align: center;
+        margin: 30px 0;
+        font-size: 20px;
+        color: #b3001b;
+      }
+
+      .dashboard {
+        display: flex;
+        gap: 20px;
+        padding: 20px 40px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .card {
+        background-color: white;
+        width: 220px;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
+      .card i {
+        font-size: 40px;
+        color: #b3001b;
+        margin-bottom: 15px;
+      }
+      .card h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .card a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        display: block;
+        margin-top: 10px;
+      }
+
+      footer {
+        background-color: #b3001b;
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 900px) {
+        .dashboard {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Admin Dashboard</h1>
+      <a href="login.html" class="logout-btn" onclick="logout()"
+        ><i class="fas fa-sign-out-alt"></i> Logout</a
+      >
+    </header>
+
+    <div class="welcome-msg" id="welcome"></div>
+
+    <section class="dashboard">
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <h3>Manage Users</h3>
+        <a href="admin-users.html">Go to Users</a>
+      </div>
+      <div class="card">
+        <i class="fas fa-tint"></i>
+        <h3>Blood Requests</h3>
+        <a href="admin-requests.html">View Requests</a>
+      </div>
+      <div class="card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Areas</h3>
+        <a href="admin-areas.html">Manage Areas</a>
+      </div>
+      <div class="card">
+        <i class="fas fa-info-circle"></i>
+        <h3>Tips</h3>
+        <a href="admin-tips.html">Manage Tips</a>
+      </div>
+      <div class="card">
+        <i class="fas fa-file-contract"></i>
+        <h3>Terms & Privacy</h3>
+        <a href="admin-terms.html">Edit Terms</a>
+      </div>
+      <div class="card">
+        <i class="fas fa-bell"></i>
+        <h3>Notifications</h3>
+        <a href="admin-notifications.html">View Notifications</a>
+      </div>
+    </section>
+
+    <footer>© PCIU RedDrop - Admin Dashboard</footer>
+
+    <script>
+      // Check if admin is logged in
+      if (localStorage.getItem("adminLoggedIn") !== "true") {
+        alert("Please login first!");
+        window.location.href = "admin-login.html";
+      } else {
+        // Show welcome message
+        const adminName = localStorage.getItem("adminName") || "Admin";
+        document.getElementById(
+          "welcome"
+        ).textContent = `Welcome, ${adminName}! You are logged in.`;
+      }
+
+      // Logout function
+      function logout() {
+        localStorage.removeItem("adminLoggedIn");
+        localStorage.removeItem("adminName");
+      }
+    </script>
+  </body>
+</html>

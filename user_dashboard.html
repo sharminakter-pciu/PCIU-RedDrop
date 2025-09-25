@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User Dashboard - PCIU RedDrop</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(to bottom right, #ff4d4d, #800000);
+        font-family: "Open Sans", sans-serif;
+        color: white;
+        margin: 0;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .dashboard-container {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 30px 40px;
+        border-radius: 12px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+      }
+      h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 28px;
+      }
+      .flex-row {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .box {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 20px 25px;
+        flex: 1 1 300px;
+        box-sizing: border-box;
+        min-width: 280px;
+      }
+      .box h3 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        margin-top: 0;
+        border-bottom: 2px solid #b30000;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+        color: #ffd6d6;
+      }
+      .profile-info p {
+        margin: 12px 0;
+        font-size: 17px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 6px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 6px 0;
+        font-weight: 600;
+        font-size: 15px;
+      }
+      select,
+      input[type="date"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: 15px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        padding: 14px;
+        background-color: #b30000;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 5px;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #7f0000;
+      }
+      .rare-blood-section {
+        background-color: #7f0000;
+        padding: 18px 22px;
+        border-radius: 12px;
+        margin-top: 35px;
+        box-shadow: 0 0 14px #ff4d4d;
+        font-weight: 700;
+        text-align: center;
+        font-size: 18px;
+        color: #ffd6d6;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .message {
+        margin-top: 12px;
+        font-weight: 600;
+        color: #ffd6d6;
+        text-align: center;
+        min-height: 24px;
+      }
+      .logout-btn {
+        display: block;
+        max-width: 200px;
+        margin: 40px auto 0;
+        background-color: #7f0000;
+        font-size: 17px;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .logout-btn:hover {
+        background-color: #b30000;
+      }
+
+      /* Responsive */
+      @media (max-width: 650px) {
+        .flex-row {
+          flex-direction: column;
+        }
+        .box {
+          min-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <h2>Welcome, <span id="fullnameTitle"></span></h2>
+
+      <div class="flex-row">
+        <!-- Profile Box -->
+        <div class="box profile-info">
+          <h3>Your Profile</h3>
+          <p><strong>Full Name:</strong> <span id="fullname"></span></p>
+          <p><strong>Email:</strong> <span id="email"></span></p>
+          <p><strong>Phone:</strong> <span id="phone"></span></p>
+          <p><strong>Department:</strong> <span id="dept"></span></p>
+          <p><strong>Blood Group:</strong> <span id="blood"></span></p>
+        </div>
+
+        <!-- Request Blood Box -->
+        <div class="box">
+          <h3>Request Blood</h3>
+          <form id="requestBloodForm">
+            <label for="requestBloodGroup">Select Blood Group</label>
+            <select id="requestBloodGroup" required>
+              <option value="" disabled selected>Select blood group</option>
+              <option>A+</option>
+              <option>A-</option>
+              <option>B+</option>
+              <option>B-</option>
+              <option>O+</option>
+              <option>O-</option>
+              <option>AB+</option>
+              <option>AB-</option>
+            </select>
+
+            <label for="requestDate">Required Date</label>
+            <input type="date" id="requestDate" required />
+
+            <button type="submit">Submit Request</button>
+          </form>
+          <div class="message" id="requestMessage"></div>
+        </div>
+
+        <!-- Available Blood Types Box -->
+        <div class="box">
+          <h3>Available Blood Types</h3>
+          <ul
+            id="availableBloodList"
+            style="padding-left: 20px; margin: 0; font-size: 16px"
+          ></ul>
+        </div>
+      </div>
+
+      <!-- Rare Blood Section -->
+      <div
+        class="rare-blood-section"
+        id="rareBloodSection"
+        style="display: none"
+      >
+        <p>
+          Thank you for being a rare blood donor! Your contribution is
+          invaluable.
+        </p>
+      </div>
+
+      <!-- Logout Button -->
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+      const currentUserEmail = localStorage.getItem("currentUserEmail");
+      if (!currentUserEmail) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+      }
+
+      let donors = JSON.parse(localStorage.getItem("donors") || "[]");
+      let currentUser = donors.find((d) => d.email === currentUserEmail);
+
+      if (!currentUser) {
+        alert("User not found! Please register again.");
+        localStorage.removeItem("currentUserEmail");
+        window.location.href = "register.html";
+      }
+
+      // Show user profile
+      document.getElementById("fullname").textContent = currentUser.fullname;
+      document.getElementById("fullnameTitle").textContent =
+        currentUser.fullname.split(" ")[0] || currentUser.fullname;
+      document.getElementById("email").textContent = currentUser.email;
+      document.getElementById("phone").textContent = currentUser.phone;
+      document.getElementById("dept").textContent = currentUser.dept;
+      document.getElementById("blood").textContent = currentUser.blood;
+
+      // Show rare blood section if applicable
+      const rareBloodGroups = ["A-", "B-", "O-", "AB-"];
+      if (rareBloodGroups.includes(currentUser.blood)) {
+        document.getElementById("rareBloodSection").style.display = "block";
+      }
+
+      // Manage available blood types list
+      let availableBloodTypes = JSON.parse(
+        localStorage.getItem("availableBloodTypes") || "[]"
+      );
+
+      // Add current user's blood if not present
+      if (!availableBloodTypes.includes(currentUser.blood)) {
+        availableBloodTypes.push(currentUser.blood);
+        localStorage.setItem(
+          "availableBloodTypes",
+          JSON.stringify(availableBloodTypes)
+        );
+      }
+
+      const availableBloodList = document.getElementById("availableBloodList");
+
+      function refreshAvailableBloodList() {
+        availableBloodList.innerHTML = "";
+        if (availableBloodTypes.length === 0) {
+          availableBloodList.innerHTML =
+            "<li>No available blood types currently.</li>";
+          return;
+        }
+        availableBloodTypes.forEach((bg) => {
+          const li = document.createElement("li");
+          li.textContent = bg;
+          availableBloodList.appendChild(li);
+        });
+      }
+      refreshAvailableBloodList();
+      document
+        .getElementById("requestBloodForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const requestedBlood =
+            document.getElementById("requestBloodGroup").value;
+          const requestedDate = document.getElementById("requestDate").value;
+          const messageEl = document.getElementById("requestMessage");
+
+          if (!requestedBlood || !requestedDate) {
+            messageEl.textContent = "Please fill all fields.";
+            return;
+          }
+
+          let bloodRequests = JSON.parse(
+            localStorage.getItem("bloodRequests") || "[]"
+          );
+
+          // Add request object
+          bloodRequests.push({
+            requesterEmail: currentUser.email,
+            bloodGroup: requestedBlood,
+            requiredDate: requestedDate,
+            requestedAt: new Date().toISOString(),
+          });
+
+          localStorage.setItem("bloodRequests", JSON.stringify(bloodRequests));
+
+          messageEl.textContent = `Blood group ${requestedBlood} requested for ${requestedDate}. We'll notify you if available.`;
+
+          this.reset();
+        });
+
+      function logout() {
+        localStorage.removeItem("currentUserEmail");
+        window.location.href = "login.html";
+      }
+    </script>
+  </body>
+</html>

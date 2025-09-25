@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Search Donors | PCIU RedDrop</title>
+    <style>
+      /* Reset and base */
+      * {
+        box-sizing: border-box;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: url("logo.jpeg") no-repeat center center fixed;
+        background-size: 700px;
+        position: relative;
+        color: #333;
+      }
+
+      /* Overlay to dim background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.75);
+        z-index: 0;
+      }
+
+      /* Container */
+      .search-container {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 25px 30px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Heading */
+      h2 {
+        color: #b3001b;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      /* Input */
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid #b3001b;
+        border-radius: 8px;
+        font-size: 16px;
+        margin-bottom: 15px;
+        transition: border-color 0.3s ease;
+      }
+      input[type="text"]:focus {
+        outline: none;
+        border-color: #8f0015;
+      }
+
+      /* Buttons */
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #b3001b;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 10px;
+        transition: background 0.3s ease;
+      }
+      button:hover {
+        background: #8f0015;
+      }
+
+      /* Back to home link */
+      .back-home {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        background: #b3001b;
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: background 0.3s ease;
+      }
+      .back-home:hover {
+        background: #8f0015;
+      }
+
+      /* Search results */
+      .results {
+        margin-top: 30px;
+      }
+      .result-item {
+        background: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(179, 0, 27, 0.2);
+        margin-bottom: 15px;
+      }
+      .result-item h3 {
+        margin-bottom: 8px;
+        color: #b3001b;
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .search-container {
+          margin: 30px 15px;
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="search-container">
+      <h2>Search Blood Donors</h2>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Enter name, blood group, or area..."
+      />
+      <button id="searchBtn">Search</button>
+      <a href="index.html" class="back-home">Back to Home</a>
+
+      <div class="results" id="results"></div>
+    </div>
+
+    <script>
+      const searchBtn = document.getElementById("searchBtn");
+      const searchInput = document.getElementById("searchInput");
+      const resultsDiv = document.getElementById("results");
+
+      searchBtn.addEventListener("click", () => {
+        const query = searchInput.value.trim().toLowerCase();
+        resultsDiv.innerHTML = "";
+
+        if (!query) {
+          alert("Please enter a search term.");
+          return;
+        }
+
+        const donors = JSON.parse(localStorage.getItem("allUsers")) || [];
+        const filtered = donors.filter((donor) => {
+          return (
+            donor.name.toLowerCase().includes(query) ||
+            donor.bloodGroup.toLowerCase().includes(query) ||
+            donor.area.toLowerCase().includes(query)
+          );
+        });
+
+        if (filtered.length === 0) {
+          resultsDiv.innerHTML = "<p>No donors found matching your search.</p>";
+          return;
+        }
+
+        filtered.forEach((donor) => {
+          const div = document.createElement("div");
+          div.classList.add("result-item");
+          div.innerHTML = `
+          <h3>${donor.name} (${donor.bloodGroup})</h3>
+          <p><strong>Area:</strong> ${donor.area}</p>
+          <p><strong>Phone:</strong> ${donor.phone}</p>
+          <p><strong>Email:</strong> ${donor.email}</p>
+        `;
+          resultsDiv.appendChild(div);
+        });
+      });
+    </script>
+  </body>
+</html>
